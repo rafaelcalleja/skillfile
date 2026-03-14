@@ -53,14 +53,3 @@ Each eval has the same user prompt. What varies is the fixture files and expecte
 
 The eval workflow must produce a report the user can review. The report format is defined by `skill-creator` — do not invent a custom format.
 
-## Feature Inventory
-
-| Feature | Evals | Status |
-|---------|-------|--------|
-| Install | #1-16 | defined |
-| Check | — | pending |
-| Update | — | pending |
-| List | — | pending |
-| Remove | — | pending |
-| Search | — | pending |
-| Standards Review | — | pending |
