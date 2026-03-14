@@ -15,6 +15,57 @@ Thumbs.db
 *.swp
 *.swo
 
-# Project-specific (these are per-project, not part of the skill repo)
-skills.yaml
-skills-lock.yaml
+# npx skills — installs symlinks into all agent directories
+# Only skills/skillfile/ is our actual source code
+.adal/
+.agent/
+.agents/
+.amp/
+.aider/
+.augment/
+.claude/
+.cline/
+.codex/
+.codebuddy/
+.commandcode/
+.continue/
+.cortex/
+.crush/
+.cursor/
+.devika/
+.devin/
+.factory/
+.gemini/
+.goose/
+.iflow/
+.junie/
+.kilo/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mentat/
+.mux/
+.neovate/
+.openhands/
+.opencode/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.sourcegraph/
+.trae/
+.vibe/
+.windsurf/
+.zed/
+.zencoder/
+skills-lock.json
+
+# Installed skill symlinks (not our source code)
+skills/*
+!skills/skillfile
+
+# Project-specific config (per-project, not part of skill source)
+skills/skillfile/skills.yaml
+skills/skillfile/skills-lock.yaml
