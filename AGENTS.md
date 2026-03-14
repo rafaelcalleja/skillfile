@@ -6,7 +6,7 @@
 
 Any modification to this skill MUST follow this pipeline:
 
-1. **Design tests** → see [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md)
+1. **Design tests** → see [evals.json](skills/skillfile/evals/evals.json)
 2. **Implement** the change
 3. **Run evals** → read `skill-creator` SKILL.md, list its steps, use them as your checklist
 4. **Verify** → every step from skill-creator marked done, viewer shown to user
