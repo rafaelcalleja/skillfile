@@ -1,38 +1,65 @@
 # AGENTS.md
 
-## Project overview
+## Development Pipeline (MANDATORY)
 
-Skillfile is a skill for AI coding agents that manages the installation and versioning of other skills from external git repositories. It uses a declarative YAML config and a lockfile with commit hashes for reproducibility.
+Any modification to this skill must follow this pipeline. No exceptions.
 
-## Directory structure
+### Before modifying
+
+1. **Identify which feature you are changing** — see Feature Inventory below
+2. **Check existing evals** — read `evals/evals.json` for the affected feature
+3. **Design new test cases** if the change adds behavior or fixes a bug. Add them to `evals/evals.json`
+4. **Get user confirmation** on the new test cases before proceeding
+
+### Implement
+
+5. **Make the change** to SKILL.md, scripts, or schemas
+6. **Run validation** — `python3 scripts/validate_skills.py` must pass
+
+### Verify
+
+7. **Run ALL evals** using `skill-creator` — not just the ones for your change, ALL of them
+8. **If any eval fails** — fix and re-run. Do not commit with failing evals
+9. **Only commit after all evals pass**
+
+### After committing
+
+10. **Review STANDARDS.md** — did this change reveal a new pattern? If so, add it
+
+---
+
+## Feature Inventory
+
+| Feature | Description | Evals |
+|---------|-------------|-------|
+| **Validate** | Run schemas against YAML files | `evals/evals.json` #1-8 |
+| **Install (lockfile)** | Checkout exact commit, install | _pending_ |
+| **Install (first-time)** | No lockfile → install from skills.yaml, generate lockfile | _pending_ |
+| **Install (new repo)** | New repo in skills.yaml not in lockfile | _pending_ |
+| **Check** | Compare lockfile commits vs remote HEAD | _pending_ |
+| **Update** | Install latest, ask confirmation, regenerate lockfile | _pending_ |
+| **List** | Display lockfile contents | _pending_ |
+| **Remove** | Remove skill + lockfile entry | _pending_ |
+| **Search** | Find new skills | _pending_ |
+| **Standards Review** | Check STANDARDS.md compliance | _pending_ |
+
+---
+
+## Project Structure
 
 ```
 skills/skillfile/
-├── SKILL.md           — main skill instructions
-├── STANDARDS.md        — patterns for building workflows/skills
+├── SKILL.md           — skill instructions (what agents execute)
+├── STANDARDS.md        — development patterns (loaded on standards review)
 ├── schemas/            — JSON schemas for YAML validation
-└── scripts/            — Python validation script
+├── scripts/            — validation script
+└── evals/              — test infrastructure
+    ├── evals.json      — test cases per feature
+    └── fixtures/       — YAML fixtures for tests
 ```
 
-## How to work on this project
+## Testing
 
-- **SKILL.md** is written in natural language for LLM agents. It is NOT a script.
-- **STANDARDS.md** is a living document — add new patterns when discovered.
-- All YAML config files must have a corresponding JSON Schema in `schemas/`.
-- All changes to YAML schemas must keep the validation script working.
+Run evals with `skill-creator`. See `evals/evals.json` for test cases and `evals/fixtures/` for test data.
 
-## Testing changes
-
-Run the validation script to check schemas are correct:
-
-```bash
-python3 skills/skillfile/scripts/validate_skills.py
-```
-
-Requires `pyyaml` and `jsonschema` Python packages.
-
-## Before committing
-
-1. Verify the validation script runs without errors
-2. Review STANDARDS.md — does this change introduce a new pattern?
-3. Ensure SKILL.md stays in natural language, no bash scripts embedded
+Validate schemas: `python3 scripts/validate_skills.py`

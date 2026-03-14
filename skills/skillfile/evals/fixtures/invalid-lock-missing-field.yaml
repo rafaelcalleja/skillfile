@@ -1,0 +1,7 @@
+# Invalid skills-lock.yaml — missing required field (branch)
+superpowers:
+  repo: https://github.com/obra/superpowers
+  commit: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2
+  installed: "2026-03-14T07:18:30+01:00"
+  skills:
+    - test-driven-development

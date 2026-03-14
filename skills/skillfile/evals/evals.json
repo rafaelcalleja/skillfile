@@ -1,0 +1,95 @@
+{
+  "skill_name": "skillfile",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml and evals/fixtures/valid-skills-lock.yaml to skills-lock.yaml in the skill directory, then run python3 scripts/validate_skills.py",
+      "expected_output": "Both files validate successfully with exit code 0",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Exit code is 0",
+        "Output contains '✅ skills.yaml is valid'",
+        "Output contains '✅ skills-lock.yaml is valid'",
+        "Output contains 'All files valid'"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml in the skill directory. Ensure there is no skills-lock.yaml file. Then run python3 scripts/validate_skills.py",
+      "expected_output": "skills.yaml validates, lockfile is skipped as optional, exit code 0",
+      "files": ["evals/fixtures/valid-skills.yaml"],
+      "expectations": [
+        "Exit code is 0",
+        "Output contains '✅ skills.yaml is valid'",
+        "Output contains 'skills-lock.yaml not found' or 'skipped'",
+        "Output contains 'All files valid'"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Copy evals/fixtures/invalid-skills-bad-url.yaml to skills.yaml in the skill directory. Then run python3 scripts/validate_skills.py",
+      "expected_output": "Validation fails with schema error for skills.yaml, exit code 1",
+      "files": ["evals/fixtures/invalid-skills-bad-url.yaml"],
+      "expectations": [
+        "Exit code is 1",
+        "Output contains '❌' and 'skills.yaml'",
+        "Output does NOT contain 'All files valid'"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml and evals/fixtures/invalid-lock-short-hash.yaml to skills-lock.yaml in the skill directory. Then run python3 scripts/validate_skills.py",
+      "expected_output": "Validation fails with schema error for skills-lock.yaml (commit hash too short), exit code 1",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/invalid-lock-short-hash.yaml"],
+      "expectations": [
+        "Exit code is 1",
+        "Output contains '❌' and 'skills-lock.yaml'",
+        "Output does NOT contain 'All files valid'"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Create an empty skills.yaml file (0 bytes) in the skill directory. Then run python3 scripts/validate_skills.py",
+      "expected_output": "Validation fails because file is empty, exit code 1",
+      "files": [],
+      "expectations": [
+        "Exit code is 1",
+        "Output contains '❌' and 'empty'",
+        "Output does NOT contain 'All files valid'"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Ensure there is no skills.yaml file in the skill directory. Then run python3 scripts/validate_skills.py",
+      "expected_output": "Validation fails because required file not found, exit code 1",
+      "files": [],
+      "expectations": [
+        "Exit code is 1",
+        "Output contains '❌' and 'not found'",
+        "Output does NOT contain 'All files valid'"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml. Create a skills-lock.yaml with an unquoted timestamp: 'installed: 2026-03-14T07:18:30+01:00' (without quotes). Then run python3 scripts/validate_skills.py",
+      "expected_output": "Validation fails because YAML auto-parses the unquoted timestamp as datetime instead of string, exit code 1",
+      "files": ["evals/fixtures/valid-skills.yaml"],
+      "expectations": [
+        "Exit code is 1",
+        "Output contains '❌' and 'skills-lock.yaml'",
+        "Output does NOT contain 'All files valid'"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml and evals/fixtures/invalid-lock-missing-field.yaml to skills-lock.yaml in the skill directory. Then run python3 scripts/validate_skills.py",
+      "expected_output": "Validation fails because lockfile is missing the required 'branch' field, exit code 1",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/invalid-lock-missing-field.yaml"],
+      "expectations": [
+        "Exit code is 1",
+        "Output contains '❌' and 'skills-lock.yaml'",
+        "Output does NOT contain 'All files valid'"
+      ]
+    }
+  ]
+}

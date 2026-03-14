@@ -1,0 +1,9 @@
+# Valid skills-lock.yaml fixture for testing
+superpowers:
+  repo: https://github.com/obra/superpowers
+  branch: main
+  commit: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2
+  installed: "2026-03-14T07:18:30+01:00"
+  skills:
+    - test-driven-development
+    - systematic-debugging

@@ -1,0 +1,8 @@
+# Invalid skills-lock.yaml — commit hash too short
+superpowers:
+  repo: https://github.com/obra/superpowers
+  branch: main
+  commit: abc123
+  installed: "2026-03-14T07:18:30+01:00"
+  skills:
+    - test-driven-development
