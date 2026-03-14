@@ -26,3 +26,4 @@ Any modification to this skill MUST follow this order:
 | Testing | [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md) | When designing or running tests |
 | Eval execution patterns | [running-test-suite.md](skills/skillfile/running-test-suite.md) | When running evals for the first time |
 | Workflow creation patterns | [creating-workflows.md](skills/skillfile/creating-workflows.md) | When building new agent workflows |
+| Test case design patterns | [designing-test-cases.md](skills/skillfile/designing-test-cases.md) | When designing evals for a new feature |
