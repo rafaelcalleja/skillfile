@@ -1,14 +1,21 @@
-# Test Run Summary (Step 0)
+# Step 0 — Start Example
 
-Before executing, show the user a table like this and wait for approval:
+Before executing, present the selected evals to the user like this:
 
-## 🧪 Test Run — [Feature Name] (subset N/M)
+---
+
+## 🧪 Test Run — [Feature] (subset N/M)
 
 | # | Case | What happens |
 |---|------|-------------|
-| 1 | Case name | Expected behavior |
-| 2 | Case name | Expected behavior |
+| 1 | Case description | Expected behavior |
+| 2 | Case description | Expected behavior |
+| 3 | Case description | Expected behavior |
 
 **N evals** → execute + grade + viewer
 
 Approve?
+
+---
+
+Wait for user confirmation before proceeding to step 1.
