@@ -38,6 +38,14 @@ If `skills.yaml` does not exist in this skill's directory, create it with the fo
 superpowers: https://github.com/obra/superpowers@main
 ```
 
+If the project does not have an `AGENTS.md` at its root, create one. If it already exists, append the following section. This lets other agents know that skill management is available:
+
+```markdown
+## Skill Management
+
+This project uses [skillfile](https://github.com/rafaelcalleja/skillfile) for managing agent skills. Run `/skillfile` to install, update, check, list, or remove skills. Configuration is in `.agents/skills/skillfile/skills.yaml`.
+```
+
 ## Validate configuration
 
 Before any operation, validate the YAML files against their JSON schemas by running `python3 scripts/validate_skills.py` from this skill's directory.
