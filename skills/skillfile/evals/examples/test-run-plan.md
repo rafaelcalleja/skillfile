@@ -1,32 +1,14 @@
-# Test Run Plan
+# Test Run Summary (Step 0)
 
-> Generated before execution. User must approve before evals run.
+Before executing, show the user a table like this and wait for approval:
 
-## Scope
+## 🧪 Test Run — [Feature Name] (subset N/M)
 
-- **Source**: `evals/evals.json`
-- **Total evals available**: 16
-- **Evals selected**: #2, #12, #13, #14, #16 (5 evals)
-- **Reason for subset**: remaining untested evals from Install feature
+| # | Case | What happens |
+|---|------|-------------|
+| 1 | Case name | Expected behavior |
+| 2 | Case name | Expected behavior |
 
-## Selected evals
+**N evals** → execute + grade + viewer
 
-| # | Case | Fixtures | Expected |
-|---|------|----------|----------|
-| 2 | Multi-repo install | `multi-repo-skills.yaml` + `multi-repo-lock.yaml` | All 3 repos installed at exact commits |
-| 12 | Same repo, 2 branches | `same-repo-two-branches-skills.yaml` | Both branches install independently |
-| 13 | Idempotent reinstall | `valid-skills.yaml` + `valid-skills-lock.yaml` | Reinstalls cleanly, no changes |
-| 14 | Partial failure | `partial-failure-skills.yaml` | First repo ok, second fails, reports error |
-| 16 | Empty config | (empty skills.yaml) | Validation fails, hard stop |
-
-## Checklist (from skill-creator)
-
-- [ ] Execute each selected eval
-- [ ] Save output per eval
-- [ ] Grade expectations
-- [ ] Generate report
-- [ ] Show viewer to user
-
-## Approve?
-
-Reply to proceed with execution or adjust the scope.
+Approve?

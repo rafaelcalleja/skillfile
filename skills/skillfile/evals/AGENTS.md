@@ -33,11 +33,10 @@ Each eval has the same user prompt. What varies is the fixture files and expecte
 
 ## Running tests
 
+0. Show the user a summary of selected evals and wait for approval — see [examples/test-run-plan.md](examples/test-run-plan.md)
 1. Read `skill-creator` SKILL.md and list its evaluation workflow steps
-2. Generate a **test run plan** — see [examples/test-run-plan.md](examples/test-run-plan.md) for the template
-3. Show the plan to the user and wait for approval
-4. Execute using skill-creator's steps as your checklist
-5. Before saying "done", verify every step is marked done and viewer shown to user
+2. Execute using skill-creator's steps as your checklist
+3. Before saying "done", verify every step is marked done and viewer shown to user
 
 ## Report
 
