@@ -8,7 +8,7 @@ Skillfile manages agent skills using a declarative YAML config (`skills.yaml`) a
 
 ## Testing
 
-Test cases are in [evals/evals.json](skills/skillfile/evals/evals.json). Run evals using `skill-creator`:
+Test cases and fixtures are documented in [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md). To run evals:
 
 1. Read `skill-creator` SKILL.md
 2. List its evaluation workflow steps
