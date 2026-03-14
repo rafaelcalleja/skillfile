@@ -18,29 +18,17 @@ Any modification to this skill MUST follow this pipeline. No exceptions. No skip
 ### Run evals
 
 6. Read `skill-creator` SKILL.md
-7. Follow skill-creator's evaluation workflow to run ALL evals in `evals/evals.json`
+7. List every step in skill-creator's evaluation workflow
+8. Use that list as your checklist — execute each step, mark it done
+9. Do NOT skip any step. If you chose a subset of evals, that's fine, but every step of the workflow must be completed for each eval you run
 
-**MANDATORY CHECKLIST — complete every item before reporting results:**
+**Before saying "done", verify against your checklist:**
 
-- [ ] Read `evals/evals.json` — note total evals (N)
-- [ ] Decide which evals to run (all or a subset) — note count (R)
-- [ ] Execute each chosen eval — save stdout to `outputs/stdout.txt`
-- [ ] Grade each executed eval — write `grading.json`
-- [ ] Generate `benchmark.json` with aggregate results
-- [ ] Generate `eval_review.html` using `generate_review.py`
-- [ ] Show the viewer to the user
+- [ ] Every step from skill-creator's workflow is marked done
+- [ ] Evals executed = evals chosen
+- [ ] Viewer/report shown to the user
 
-**STOP — before saying "done", verify:**
-
-- [ ] Total evals in `evals.json`: ___
-- [ ] Evals chosen to run: ___
-- [ ] Evals actually executed: ___
-- [ ] Evals with `grading.json`: ___
-- [ ] `benchmark.json` exists? ___
-- [ ] `eval_review.html` exists? ___
-- [ ] Viewer shown to user? ___
-
-If executed ≠ chosen, or any grading/benchmark/viewer is missing, you are NOT done.
+If anything is missing, go back and complete it.
 
 ### After all evals pass
 
