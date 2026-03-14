@@ -33,7 +33,16 @@ Each eval has the same user prompt. What varies is the fixture files and expecte
 
 ## Running tests
 
-0. Show the user a summary of selected evals and wait for approval — see [examples/test-run-plan.md](examples/test-run-plan.md)
+0. Show the user a summary and wait for approval:
+
+   ## 🧪 Test Run — [Feature] (subset N/M)
+
+   | # | Case | What happens |
+   |---|------|-------------|
+   | 1 | Case description | Expected behavior |
+   | 2 | Case description | Expected behavior |
+
+   **N evals** → execute + grade + viewer. Approve?
 1. Read `skill-creator` SKILL.md
 2. List its evaluation workflow steps
 3. Use those steps as your checklist — execute each one, mark it done
