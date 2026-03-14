@@ -12,7 +12,7 @@ A skill for managing agent skills with version pinning and reproducibility.
 ## Install
 
 ```bash
-npx skills add decolua/skillfile
+npx skills add rafaelcalleja/skillfile
 ```
 
 ## Usage
