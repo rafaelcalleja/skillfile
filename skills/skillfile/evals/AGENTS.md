@@ -33,7 +33,11 @@ Each eval has the same user prompt. What varies is the fixture files and expecte
 
 ## Running tests
 
-Use `skill-creator` — follow its evaluation workflow. See root [AGENTS.md](../../AGENTS.md) for the full pipeline.
+1. Read `skill-creator` SKILL.md
+2. List its evaluation workflow steps
+3. Use those steps as your checklist — execute each one, mark it done
+4. Subsets of evals are valid, but every skill-creator step must be completed for each eval you run
+5. Before saying "done", verify every step is marked done and viewer shown to user
 
 ## Feature Inventory
 

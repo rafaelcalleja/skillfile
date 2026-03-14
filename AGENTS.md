@@ -8,12 +8,7 @@ Skillfile manages agent skills using a declarative YAML config (`skills.yaml`) a
 
 ## Testing
 
-Test cases and fixtures are documented in [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md). To run evals:
-
-1. Read `skill-creator` SKILL.md
-2. List its evaluation workflow steps
-3. Use those steps as your checklist — execute each one, mark it done
-4. Subsets of evals are valid
+See [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md) for test cases, fixtures, and how to run evals.
 
 ## Development Pipeline
 
@@ -32,5 +27,4 @@ Any modification to this skill MUST follow this order:
 |------|-------|-------------|
 | Skill instructions | [SKILL.md](skills/skillfile/SKILL.md) | When executing any skill operation |
 | Development patterns | [STANDARDS.md](skills/skillfile/STANDARDS.md) | After completing any operation |
-| Test cases & context | [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md) | When designing or running tests |
-| Eval workflow | `skill-creator` SKILL.md | When running evals |
+| Testing | [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md) | When designing or running tests |
