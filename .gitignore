@@ -61,6 +61,7 @@ Thumbs.db
 .zed/
 .zencoder/
 skills-lock.json
+skillfile-workspace/
 
 # Installed skill symlinks (not our source code)
 skills/*

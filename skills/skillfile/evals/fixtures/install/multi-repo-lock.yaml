@@ -1,8 +1,8 @@
-# Lockfile with 3 entries matching multi-repo-skills.yaml
+# Lockfile with 3 entries — real commit hashes
 superpowers:
   repo: https://github.com/obra/superpowers
   branch: main
-  commit: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2
+  commit: 363923f74aa9cd7b470c0aaa73dee629a8bfdc90
   installed: "2026-03-14T07:18:30+01:00"
   skills:
     - test-driven-development
@@ -20,7 +20,7 @@ anthropic-skills:
 skillfile:
   repo: https://github.com/rafaelcalleja/skillfile
   branch: master
-  commit: 776a8b3f1234567890abcdef1234567890abcdef
+  commit: 6081bb101a6176d727d529eeff4fdaa68ce97fc9
   installed: "2026-03-14T07:18:30+01:00"
   skills:
     - skillfile
