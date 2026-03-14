@@ -13,8 +13,8 @@ WORKFLOWS_DIR = Path(__file__).resolve().parent.parent
 SCHEMAS_DIR = WORKFLOWS_DIR / "schemas"
 
 FILES_TO_VALIDATE = [
-    ("skills.yaml", "skills.schema.json"),
-    ("skills-lock.yaml", "skills-lock.schema.json"),
+    ("skills.yaml", "skills.schema.json", True),       # required
+    ("skills-lock.yaml", "skills-lock.schema.json", False),  # optional (first-time install)
 ]
 
 
@@ -50,9 +50,14 @@ def validate_file(yaml_file: Path, schema_file: Path) -> list[str]:
 def main():
     all_errors = []
 
-    for yaml_name, schema_name in FILES_TO_VALIDATE:
+    for yaml_name, schema_name, required in FILES_TO_VALIDATE:
         yaml_path = WORKFLOWS_DIR / yaml_name
         schema_path = SCHEMAS_DIR / schema_name
+
+        if not yaml_path.exists() and not required:
+            print(f"⏭️  {yaml_name} not found (optional, skipped)")
+            continue
+
         errors = validate_file(yaml_path, schema_path)
         all_errors.extend(errors)
 

@@ -60,6 +60,22 @@ skills/skillfile/
 
 ## Testing
 
-Run evals with `skill-creator`. See `evals/evals.json` for test cases and `evals/fixtures/` for test data.
+### Run all evals
 
-Validate schemas: `python3 scripts/validate_skills.py`
+```bash
+cd skills/skillfile && python3 evals/run_evals.py
+```
+
+### Run specific evals
+
+```bash
+cd skills/skillfile && python3 evals/run_evals.py 1 3 5
+```
+
+### Run validation only
+
+```bash
+cd skills/skillfile && python3 scripts/validate_skills.py
+```
+
+All evals must pass (exit code 0) before committing.
