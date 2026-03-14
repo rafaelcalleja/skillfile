@@ -12,7 +12,7 @@ Any modification to this skill MUST follow this order:
 
 1. **Design tests** → see [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md)
 2. **Implement** the change
-3. **Run evals** → see Testing above
+3. **Run evals** → see [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md)
 4. **Verify** → every skill-creator step marked done, viewer shown to user
 5. **Commit** only after evals pass
 6. **Review standards** → see [STANDARDS.md](skills/skillfile/STANDARDS.md)
@@ -24,3 +24,4 @@ Any modification to this skill MUST follow this order:
 | Skill instructions | [SKILL.md](skills/skillfile/SKILL.md) | When executing any skill operation |
 | Development patterns | [STANDARDS.md](skills/skillfile/STANDARDS.md) | After completing any operation |
 | Testing | [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md) | When designing or running tests |
+| Eval execution patterns | [running-test-suite.md](skills/skillfile/running-test-suite.md) | When running evals for the first time |
