@@ -6,10 +6,6 @@
 
 Skillfile manages agent skills using a declarative YAML config (`skills.yaml`) and a lockfile (`skills-lock.yaml`) for reproducibility. Skills are installed from git repositories.
 
-## Testing
-
-See [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md) for test cases, fixtures, and how to run evals.
-
 ## Development Pipeline
 
 Any modification to this skill MUST follow this order:
