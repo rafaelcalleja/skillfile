@@ -20,26 +20,27 @@ Any modification to this skill MUST follow this pipeline. No exceptions. No skip
 6. Read `skill-creator` SKILL.md
 7. Follow skill-creator's evaluation workflow to run ALL evals in `evals/evals.json`
 
-**MANDATORY CHECKLIST — you MUST complete every item before reporting results:**
+**MANDATORY CHECKLIST — complete every item before reporting results:**
 
-- [ ] Read `evals/evals.json` — count total evals
-- [ ] Execute every eval (not a subset, ALL of them)
-- [ ] Save stdout output for each eval to `outputs/stdout.txt`
-- [ ] Grade each eval's expectations — write `grading.json`
+- [ ] Read `evals/evals.json` — note total evals (N)
+- [ ] Decide which evals to run (all or a subset) — note count (R)
+- [ ] Execute each chosen eval — save stdout to `outputs/stdout.txt`
+- [ ] Grade each executed eval — write `grading.json`
 - [ ] Generate `benchmark.json` with aggregate results
 - [ ] Generate `eval_review.html` using `generate_review.py`
-- [ ] Report the viewer to the user
+- [ ] Show the viewer to the user
 
 **STOP — before saying "done", verify:**
 
-- [ ] How many evals are in `evals.json`? ___
-- [ ] How many did you execute? ___
-- [ ] How many have `grading.json`? ___
-- [ ] Does `benchmark.json` exist? ___
-- [ ] Does `eval_review.html` exist? ___
-- [ ] Did you show the viewer to the user? ___
+- [ ] Total evals in `evals.json`: ___
+- [ ] Evals chosen to run: ___
+- [ ] Evals actually executed: ___
+- [ ] Evals with `grading.json`: ___
+- [ ] `benchmark.json` exists? ___
+- [ ] `eval_review.html` exists? ___
+- [ ] Viewer shown to user? ___
 
-If ANY answer is "no" or the counts don't match, you are NOT done. Go back and complete the missing steps.
+If executed ≠ chosen, or any grading/benchmark/viewer is missing, you are NOT done.
 
 ### After all evals pass
 
