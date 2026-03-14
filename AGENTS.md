@@ -2,29 +2,49 @@
 
 ## Development Pipeline (MANDATORY)
 
-Any modification to this skill must follow this pipeline. No exceptions.
+Any modification to this skill MUST follow this pipeline. No exceptions. No skipping steps.
 
 ### Before modifying
 
-1. **Identify which feature you are changing** — see Feature Inventory below
-2. **Check existing evals** — read `evals/evals.json` for the affected feature
-3. **Design new test cases** if the change adds behavior or fixes a bug. Add them to `evals/evals.json`
-4. **Get user confirmation** on the new test cases before proceeding
+1. Identify which feature you are changing — see Feature Inventory below
+2. Check existing evals in `evals/evals.json` for the affected feature
+3. Design new test cases if the change adds behavior or fixes a bug
+4. Add them to `evals/evals.json`
 
 ### Implement
 
-5. **Make the change** to SKILL.md, scripts, or schemas
-6. **Run validation** — `python3 scripts/validate_skills.py` must pass
+5. Make the change to SKILL.md, scripts, or schemas
 
-### Verify
+### Run evals
 
-7. **Run ALL evals** using `skill-creator` — not just the ones for your change, ALL of them
-8. **If any eval fails** — fix and re-run. Do not commit with failing evals
-9. **Only commit after all evals pass**
+6. Read `skill-creator` SKILL.md
+7. Follow skill-creator's evaluation workflow to run ALL evals in `evals/evals.json`
 
-### After committing
+**MANDATORY CHECKLIST — you MUST complete every item before reporting results:**
 
-10. **Review STANDARDS.md** — did this change reveal a new pattern? If so, add it
+- [ ] Read `evals/evals.json` — count total evals
+- [ ] Execute every eval (not a subset, ALL of them)
+- [ ] Save stdout output for each eval to `outputs/stdout.txt`
+- [ ] Grade each eval's expectations — write `grading.json`
+- [ ] Generate `benchmark.json` with aggregate results
+- [ ] Generate `eval_review.html` using `generate_review.py`
+- [ ] Report the viewer to the user
+
+**STOP — before saying "done", verify:**
+
+- [ ] How many evals are in `evals.json`? ___
+- [ ] How many did you execute? ___
+- [ ] How many have `grading.json`? ___
+- [ ] Does `benchmark.json` exist? ___
+- [ ] Does `eval_review.html` exist? ___
+- [ ] Did you show the viewer to the user? ___
+
+If ANY answer is "no" or the counts don't match, you are NOT done. Go back and complete the missing steps.
+
+### After all evals pass
+
+8. Only commit after all evals pass
+9. Review `STANDARDS.md` — did this change reveal a new pattern?
 
 ---
 
@@ -32,12 +52,9 @@ Any modification to this skill must follow this pipeline. No exceptions.
 
 | Feature | Description | Evals |
 |---------|-------------|-------|
-| **Validate** | Run schemas against YAML files | `evals/evals.json` #1-8 |
-| **Install (lockfile)** | Checkout exact commit, install | _pending_ |
-| **Install (first-time)** | No lockfile → install from skills.yaml, generate lockfile | _pending_ |
-| **Install (new repo)** | New repo in skills.yaml not in lockfile | _pending_ |
-| **Check** | Compare lockfile commits vs remote HEAD | _pending_ |
-| **Update** | Install latest, ask confirmation, regenerate lockfile | _pending_ |
+| **Install** | Install skills from lockfile or first-time | `evals/evals.json` #1-16 |
+| **Check** | Compare lockfile vs remote HEAD | _pending_ |
+| **Update** | Install latest + regenerate lockfile | _pending_ |
 | **List** | Display lockfile contents | _pending_ |
 | **Remove** | Remove skill + lockfile entry | _pending_ |
 | **Search** | Find new skills | _pending_ |
@@ -50,14 +67,11 @@ Any modification to this skill must follow this pipeline. No exceptions.
 ```
 skills/skillfile/
 ├── SKILL.md           — skill instructions (what agents execute)
-├── STANDARDS.md        — development patterns (loaded on standards review)
+├── STANDARDS.md        — development patterns
 ├── schemas/            — JSON schemas for YAML validation
 ├── scripts/            — validation script
-└── evals/              — test infrastructure
-    ├── evals.json      — test cases per feature
+└── evals/
+    ├── evals.json      — test cases (prompt + fixtures + expectations)
     └── fixtures/       — YAML fixtures for tests
+        └── install/    — Install feature fixtures
 ```
-
-## Testing
-
-Use `skill-creator` to run all evals defined in `evals/evals.json`. Read the `skill-creator` SKILL.md and follow its evaluation workflow. All evals must pass before committing.
