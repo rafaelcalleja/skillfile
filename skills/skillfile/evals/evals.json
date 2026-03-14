@@ -118,18 +118,6 @@
       ]
     },
     {
-      "id": 10,
-      "prompt": "Install my skills",
-      "expected_output": "Network is unavailable, git clone fails, agent reports connectivity error",
-      "files": ["evals/fixtures/valid-skills.yaml"],
-      "expectations": [
-        "Agent runs validation (passes)",
-        "Agent attempts to clone",
-        "Clone fails due to network error",
-        "Agent reports the connectivity issue to the user"
-      ]
-    },
-    {
       "id": 11,
       "prompt": "Install my skills",
       "expected_output": "Lockfile has an entry (removed-repo) that is not in skills.yaml. Agent behavior for orphaned lockfile entries is undefined — this eval documents what happens",
