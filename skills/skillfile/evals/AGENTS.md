@@ -46,11 +46,6 @@ Each step MUST print its name and result before proceeding to the next. Do NOT b
 
 1. Say "Step 1: Reading skill-creator SKILL.md" → read it → list the steps found
 2. Say "Step 2: Listing workflow steps" → print them numbered
-3. Say "Step 3: Executing eval #N" → execute → print result. Repeat for each eval
-4. Say "Step 4: Grading" → grade each eval → print pass/fail per eval
-5. Say "Step 5: Generating viewer" → generate → show to user
-
-## Report
-
-The eval workflow must produce a report the user can review. The report format is defined by `skill-creator` — do not invent a custom format.
+3. Say "Step 3: Executing skill-creator" → run the workflow for each eval
+4. Say "Step 4: Reviewing" → verify skill-creator completed all its steps, viewer shown to user
 
