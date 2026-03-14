@@ -3,92 +3,203 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml and evals/fixtures/valid-skills-lock.yaml to skills-lock.yaml in the skill directory, then run python3 scripts/validate_skills.py",
-      "expected_output": "Both files validate successfully with exit code 0",
+      "prompt": "Install my skills",
+      "expected_output": "Agent reads SKILL.md, validates config, clones repo at exact commit from lockfile, runs npx skills add, does NOT modify lockfile",
       "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
       "expectations": [
-        "Exit code is 0",
-        "Output contains '✅ skills.yaml is valid'",
-        "Output contains '✅ skills-lock.yaml is valid'",
-        "Output contains 'All files valid'"
+        "Agent runs validation before install",
+        "Agent clones the repo at the exact commit hash from the lockfile",
+        "Agent runs npx skills add with the cloned path",
+        "Agent does NOT modify skills-lock.yaml",
+        "Agent cleans up temporary clone directory"
       ]
     },
     {
       "id": 2,
-      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml in the skill directory. Ensure there is no skills-lock.yaml file. Then run python3 scripts/validate_skills.py",
-      "expected_output": "skills.yaml validates, lockfile is skipped as optional, exit code 0",
-      "files": ["evals/fixtures/valid-skills.yaml"],
+      "prompt": "Install my skills",
+      "expected_output": "Agent installs all 3 repos from lockfile at their exact commits, does not modify lockfile",
+      "files": ["evals/fixtures/install/multi-repo-skills.yaml", "evals/fixtures/install/multi-repo-lock.yaml"],
       "expectations": [
-        "Exit code is 0",
-        "Output contains '✅ skills.yaml is valid'",
-        "Output contains 'skills-lock.yaml not found' or 'skipped'",
-        "Output contains 'All files valid'"
+        "Agent runs validation before install",
+        "Agent installs all 3 repositories",
+        "Each repo is cloned at its exact commit hash from the lockfile",
+        "Agent does NOT modify skills-lock.yaml"
       ]
     },
     {
       "id": 3,
-      "prompt": "Copy evals/fixtures/invalid-skills-bad-url.yaml to skills.yaml in the skill directory. Then run python3 scripts/validate_skills.py",
-      "expected_output": "Validation fails with schema error for skills.yaml, exit code 1",
-      "files": ["evals/fixtures/invalid-skills-bad-url.yaml"],
+      "prompt": "Install my skills",
+      "expected_output": "First-time install: no lockfile present, agent installs latest from branch and generates lockfile",
+      "files": ["evals/fixtures/valid-skills.yaml"],
       "expectations": [
-        "Exit code is 1",
-        "Output contains '❌' and 'skills.yaml'",
-        "Output does NOT contain 'All files valid'"
+        "Agent runs validation before install",
+        "Agent detects that no lockfile exists",
+        "Agent treats this as a first-time install",
+        "Agent installs the latest version from the branch",
+        "Agent generates skills-lock.yaml with commit hash and timestamp"
       ]
     },
     {
       "id": 4,
-      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml and evals/fixtures/invalid-lock-short-hash.yaml to skills-lock.yaml in the skill directory. Then run python3 scripts/validate_skills.py",
-      "expected_output": "Validation fails with schema error for skills-lock.yaml (commit hash too short), exit code 1",
-      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/invalid-lock-short-hash.yaml"],
+      "prompt": "Install my skills",
+      "expected_output": "First-time install with 3 repos: generates lockfile with 3 entries",
+      "files": ["evals/fixtures/install/multi-repo-skills.yaml"],
       "expectations": [
-        "Exit code is 1",
-        "Output contains '❌' and 'skills-lock.yaml'",
-        "Output does NOT contain 'All files valid'"
+        "Agent runs validation before install",
+        "Agent detects no lockfile, treats as first-time install",
+        "Agent installs all 3 repositories",
+        "Agent generates skills-lock.yaml with 3 entries",
+        "Each entry has repo, branch, commit, installed timestamp, and skills list"
       ]
     },
     {
       "id": 5,
-      "prompt": "Create an empty skills.yaml file (0 bytes) in the skill directory. Then run python3 scripts/validate_skills.py",
-      "expected_output": "Validation fails because file is empty, exit code 1",
-      "files": [],
+      "prompt": "Install my skills",
+      "expected_output": "Agent installs existing repo from lockfile commit + installs new repo at latest, adds new entry to lockfile",
+      "files": ["evals/fixtures/install/two-repo-skills.yaml", "evals/fixtures/install/one-repo-lock.yaml"],
       "expectations": [
-        "Exit code is 1",
-        "Output contains '❌' and 'empty'",
-        "Output does NOT contain 'All files valid'"
+        "Agent runs validation before install",
+        "Agent installs superpowers at the exact commit from lockfile",
+        "Agent detects anthropic-skills is new (not in lockfile)",
+        "Agent installs anthropic-skills at latest from branch",
+        "Agent adds anthropic-skills entry to lockfile",
+        "Agent does NOT modify the existing superpowers lockfile entry"
       ]
     },
     {
       "id": 6,
-      "prompt": "Ensure there is no skills.yaml file in the skill directory. Then run python3 scripts/validate_skills.py",
-      "expected_output": "Validation fails because required file not found, exit code 1",
-      "files": [],
+      "prompt": "Install my skills",
+      "expected_output": "Validation fails on malformed skills.yaml, agent stops immediately and does not install anything",
+      "files": ["evals/fixtures/invalid-skills-bad-url.yaml"],
       "expectations": [
-        "Exit code is 1",
-        "Output contains '❌' and 'not found'",
-        "Output does NOT contain 'All files valid'"
+        "Agent runs validation before install",
+        "Validation fails with a schema error",
+        "Agent stops immediately — hard gate",
+        "Agent does NOT attempt to clone or install",
+        "Agent reports the exact error to the user"
       ]
     },
     {
       "id": 7,
-      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml. Create a skills-lock.yaml with an unquoted timestamp: 'installed: 2026-03-14T07:18:30+01:00' (without quotes). Then run python3 scripts/validate_skills.py",
-      "expected_output": "Validation fails because YAML auto-parses the unquoted timestamp as datetime instead of string, exit code 1",
-      "files": ["evals/fixtures/valid-skills.yaml"],
+      "prompt": "Install my skills",
+      "expected_output": "Git clone fails because repository does not exist, agent reports error and stops",
+      "files": ["evals/fixtures/install/nonexistent-repo-skills.yaml"],
       "expectations": [
-        "Exit code is 1",
-        "Output contains '❌' and 'skills-lock.yaml'",
-        "Output does NOT contain 'All files valid'"
+        "Agent runs validation (passes)",
+        "Agent attempts to clone the repository",
+        "Clone fails because the repo does not exist",
+        "Agent reports the error to the user",
+        "Agent does NOT generate a lockfile entry for the failed repo"
       ]
     },
     {
       "id": 8,
-      "prompt": "Copy evals/fixtures/valid-skills.yaml to skills.yaml and evals/fixtures/invalid-lock-missing-field.yaml to skills-lock.yaml in the skill directory. Then run python3 scripts/validate_skills.py",
-      "expected_output": "Validation fails because lockfile is missing the required 'branch' field, exit code 1",
-      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/invalid-lock-missing-field.yaml"],
+      "prompt": "Install my skills",
+      "expected_output": "Git checkout fails because commit hash does not exist in repo, agent reports error",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/install/orphaned-commit-lock.yaml"],
       "expectations": [
-        "Exit code is 1",
-        "Output contains '❌' and 'skills-lock.yaml'",
-        "Output does NOT contain 'All files valid'"
+        "Agent runs validation (passes)",
+        "Agent clones the repository",
+        "Agent attempts to checkout the commit hash from lockfile",
+        "Checkout fails because commit does not exist",
+        "Agent reports the error to the user and stops"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Install my skills",
+      "expected_output": "npx skills add fails, agent reports error and stops",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent clones and checks out successfully",
+        "If npx skills add fails, agent reports the error",
+        "Agent does NOT silently ignore the failure"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Install my skills",
+      "expected_output": "Network is unavailable, git clone fails, agent reports connectivity error",
+      "files": ["evals/fixtures/valid-skills.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent attempts to clone",
+        "Clone fails due to network error",
+        "Agent reports the connectivity issue to the user"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Install my skills",
+      "expected_output": "Lockfile has an entry (removed-repo) that is not in skills.yaml. Agent behavior for orphaned lockfile entries is undefined — this eval documents what happens",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/install/extra-entry-lock.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent installs superpowers (present in both files)",
+        "Agent handles the extra lockfile entry (removed-repo) — either ignores it, warns about it, or asks the user"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Install my skills",
+      "expected_output": "Same repository referenced with two different branches. Agent should handle this without conflict",
+      "files": ["evals/fixtures/install/same-repo-two-branches-skills.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent treats each entry as independent",
+        "Agent installs from both branches without conflict",
+        "Each branch gets its own lockfile entry"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Install my skills",
+      "expected_output": "Everything is already installed at the correct commit. Install should be idempotent — reinstalls cleanly",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent clones and installs at the lockfile commit",
+        "Installation completes without error",
+        "Lockfile is NOT modified",
+        "Result is identical to a fresh install"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Install my skills",
+      "expected_output": "First repo installs successfully but second repo fails (doesn't exist). Partial failure behavior is undefined — this eval documents what happens",
+      "files": ["evals/fixtures/install/partial-failure-skills.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent installs the first repo (superpowers) successfully",
+        "Agent fails on the second repo (fake-repo)",
+        "Agent reports the failure to the user",
+        "Agent handles lockfile state consistently — either writes only the successful entry or writes nothing"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Install my skills",
+      "expected_output": "Private/inaccessible repo fails to clone, agent reports authentication or access error",
+      "files": ["evals/fixtures/install/private-repo-skills.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent attempts to clone the repository",
+        "Clone fails due to access/authentication error",
+        "Agent reports the error to the user"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Install my skills",
+      "expected_output": "skills.yaml is empty, validation fails, agent stops",
+      "files": [],
+      "expectations": [
+        "Agent runs validation",
+        "Validation fails because skills.yaml is empty",
+        "Agent stops immediately — hard gate",
+        "Agent does NOT attempt to install anything"
       ]
     }
   ]

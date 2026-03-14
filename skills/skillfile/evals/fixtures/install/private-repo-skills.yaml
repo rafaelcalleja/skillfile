@@ -1,0 +1,2 @@
+# Private repo — will fail without authentication
+private-repo: https://github.com/rafaelcalleja/private-nonexistent-repo@main

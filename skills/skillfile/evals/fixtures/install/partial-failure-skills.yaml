@@ -1,0 +1,3 @@
+# 2 repos — first is valid, second doesn't exist
+superpowers: https://github.com/obra/superpowers@main
+fake-repo: https://github.com/this-user-does-not-exist-xyz/fake-repo-12345@main

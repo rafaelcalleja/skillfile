@@ -1,0 +1,17 @@
+# Lockfile has A+B but skills.yaml only has A
+# This lockfile goes with valid-skills.yaml (which only has superpowers)
+superpowers:
+  repo: https://github.com/obra/superpowers
+  branch: main
+  commit: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2
+  installed: "2026-03-14T07:18:30+01:00"
+  skills:
+    - test-driven-development
+
+removed-repo:
+  repo: https://github.com/some/removed-repo
+  branch: main
+  commit: ffffffffffffffffffffffffffffffffffffffff
+  installed: "2026-03-14T07:18:30+01:00"
+  skills:
+    - old-skill

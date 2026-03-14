@@ -1,0 +1,3 @@
+# 2 repos — one exists in lockfile, one is new
+superpowers: https://github.com/obra/superpowers@main
+anthropic-skills: https://github.com/anthropics/skills@main

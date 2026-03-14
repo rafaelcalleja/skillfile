@@ -1,0 +1,2 @@
+# skills.yaml pointing to a repository that does not exist
+fake-repo: https://github.com/this-user-does-not-exist-xyz/fake-repo-12345@main

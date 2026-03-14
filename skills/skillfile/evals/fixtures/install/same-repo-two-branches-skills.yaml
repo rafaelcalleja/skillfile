@@ -1,0 +1,3 @@
+# Same repo, two different branches
+superpowers-main: https://github.com/obra/superpowers@main
+superpowers-dev: https://github.com/obra/superpowers@develop
