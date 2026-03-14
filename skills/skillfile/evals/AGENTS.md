@@ -33,6 +33,8 @@ Each eval has the same user prompt. What varies is the fixture files and expecte
 
 ## Running tests
 
+Each step MUST print its name and result before proceeding to the next. Do NOT batch steps. Do NOT skip announcing a step.
+
 0. Show the user a summary and wait for approval:
 
    ## 🧪 Test Run — [Feature] (subset N/M)
@@ -43,11 +45,12 @@ Each eval has the same user prompt. What varies is the fixture files and expecte
    | 2 | Case description | Expected behavior |
 
    **N evals** → execute + grade + viewer. Approve?
-1. Read `skill-creator` SKILL.md
-2. List its evaluation workflow steps
-3. Use those steps as your checklist — execute each one, mark it done
-4. Subsets of evals are valid, but every skill-creator step must be completed for each eval you run
-5. Before saying "done", verify every step is marked done and viewer shown to user
+
+1. Say "Step 1: Reading skill-creator SKILL.md" → read it → list the steps found
+2. Say "Step 2: Listing workflow steps" → print them numbered
+3. Say "Step 3: Executing eval #N" → execute → print result. Repeat for each eval
+4. Say "Step 4: Grading" → grade each eval → print pass/fail per eval
+5. Say "Step 5: Generating viewer" → generate → show to user
 
 ## Report
 
