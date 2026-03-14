@@ -60,22 +60,4 @@ skills/skillfile/
 
 ## Testing
 
-### Run all evals
-
-```bash
-cd skills/skillfile && python3 evals/run_evals.py
-```
-
-### Run specific evals
-
-```bash
-cd skills/skillfile && python3 evals/run_evals.py 1 3 5
-```
-
-### Run validation only
-
-```bash
-cd skills/skillfile && python3 scripts/validate_skills.py
-```
-
-All evals must pass (exit code 0) before committing.
+Use `skill-creator` to run all evals defined in `evals/evals.json`. Read the `skill-creator` SKILL.md and follow its evaluation workflow. All evals must pass before committing.
