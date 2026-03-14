@@ -44,8 +44,6 @@ Each step MUST print its name and result before proceeding to the next. Do NOT b
    | 1 | Case description | Expected behavior |
    | 2 | Case description | Expected behavior |
 
-   **N evals** → execute + grade + viewer. Approve?
-
 1. Say "Step 1: Reading skill-creator SKILL.md" → read it → list the steps found
 2. Say "Step 2: Listing workflow steps" → print them numbered
 3. Say "Step 3: Executing eval #N" → execute → print result. Repeat for each eval
