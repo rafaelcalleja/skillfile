@@ -39,14 +39,9 @@ Each eval has the same user prompt. What varies is the fixture files and expecte
 4. Subsets of evals are valid, but every skill-creator step must be completed for each eval you run
 5. Before saying "done", verify every step is marked done and viewer shown to user
 
-## Expected report
+## Report
 
-Each eval in the report must include:
-
-- **Prompt**: the user request that was tested
-- **Output**: what the agent produced (stdout, files created, commands run)
-- **Grading**: pass/fail for each expectation, with evidence
-- **Summary**: aggregate pass rate across all executed evals
+The eval workflow must produce a report the user can review. The report format is defined by `skill-creator` — do not invent a custom format.
 
 ## Feature Inventory
 
