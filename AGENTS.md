@@ -25,3 +25,4 @@ Any modification to this skill MUST follow this order:
 | Development patterns | [STANDARDS.md](skills/skillfile/STANDARDS.md) | After completing any operation |
 | Testing | [evals/AGENTS.md](skills/skillfile/evals/AGENTS.md) | When designing or running tests |
 | Eval execution patterns | [running-test-suite.md](skills/skillfile/running-test-suite.md) | When running evals for the first time |
+| Workflow creation patterns | [creating-workflows.md](skills/skillfile/creating-workflows.md) | When building new agent workflows |
