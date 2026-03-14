@@ -189,6 +189,66 @@
         "Agent stops immediately — hard gate",
         "Agent does NOT attempt to install anything"
       ]
+    },
+    {
+      "id": 17,
+      "prompt": "Remove the superpowers skill",
+      "expected_output": "Agent removes the skill and deletes its lockfile entry",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent runs npx skills remove superpowers --all",
+        "Agent removes the superpowers entry from skills-lock.yaml",
+        "Agent confirms removal to the user"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Remove the superpowers skill",
+      "expected_output": "Agent removes only superpowers from a multi-repo lockfile, other entries stay intact",
+      "files": ["evals/fixtures/install/multi-repo-skills.yaml", "evals/fixtures/install/multi-repo-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent runs npx skills remove superpowers --all",
+        "Agent removes only the superpowers entry from skills-lock.yaml",
+        "Other lockfile entries (anthropic-skills, skillfile) remain intact"
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Remove the nonexistent-skill skill",
+      "expected_output": "Agent reports that the skill is not found in the lockfile",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent checks the lockfile for nonexistent-skill",
+        "Agent reports that the skill was not found",
+        "Agent does NOT modify skills-lock.yaml"
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "Remove the superpowers skill",
+      "expected_output": "No lockfile exists, agent reports error",
+      "files": ["evals/fixtures/valid-skills.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent detects no lockfile exists",
+        "Agent reports that there is nothing to remove",
+        "Agent does NOT create a lockfile"
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Remove the superpowers skill",
+      "expected_output": "Validation fails on bad skills.yaml, agent stops before removing",
+      "files": ["evals/fixtures/invalid-skills-bad-url.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Validation fails with a schema error",
+        "Agent stops immediately — hard gate",
+        "Agent does NOT attempt to remove anything"
+      ]
     }
   ]
 }
