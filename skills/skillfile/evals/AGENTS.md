@@ -46,6 +46,6 @@ Each step MUST print its name and result before proceeding to the next. Do NOT b
 
 1. Say "Step 1: Reading skill-creator SKILL.md" → read it → list the steps found
 2. Say "Step 2: Listing workflow steps" → print them numbered
-3. Say "Step 3: Executing skill-creator" → run the workflow for each eval
+3. Say "Step 3: Executing skill-creator" → run the workflow
 4. Say "Step 4: Reviewing" → verify skill-creator completed all its steps, viewer shown to user
 
