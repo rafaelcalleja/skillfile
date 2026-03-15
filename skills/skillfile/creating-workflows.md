@@ -37,3 +37,7 @@ Agents skip steps they don't announce. Force the agent to say "Step N: [what]" b
 ## Step 0 is a gate
 
 Before executing anything, show the user what will happen. Wait for explicit approval. This makes the process predictable and gives the user control over scope.
+
+## Every feature must update all affected files
+
+When a feature changes a format, behavior, or instruction, check every file in the repo that references it. Update or delete stale content. Files to check: SKILL.md, AGENTS.md, STANDARDS.md, README, schemas, fixtures, evals.json, validation scripts. If you changed a format, every example of the old format is now wrong.
