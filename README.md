@@ -16,6 +16,22 @@ A skill for managing agent skills with version pinning and reproducibility.
 npx skills add rafaelcalleja/skillfile
 ```
 
+## Getting Started
+
+1. **Install** the skillfile skill into your project:
+
+```bash
+npx -y skills@1.4.5 add https://github.com/rafaelcalleja/skillfile --agent claude-code --skill '*' -y
+```
+
+2. **Prompt your agent** to install any skill by URL:
+
+```
+Install me this skill https://github.com/obra/superpowers
+```
+
+That's it — the agent will read the skillfile config, clone the repo, and install the skill for you.
+
 ## Usage
 
 Once installed, the skill is available to your AI agent. Ask it to:
