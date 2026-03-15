@@ -4,8 +4,9 @@ A skill for managing agent skills with version pinning and reproducibility.
 
 ## What it does
 
-- **Declarative config** — define repos and branches in `skills.yaml`
+- **Declarative config** — define repos, branches, and target agents in `skills.yaml`
 - **Lockfile** — pins exact commit hashes for reproducible installs
+- **Agent filtering** — install skills for specific agents (claude-code, cursor, etc.)
 - **Validation** — JSON Schema + Python jsonschema for all YAML files
 - **Standards** — self-evolving patterns for workflow quality
 
@@ -26,8 +27,13 @@ Once installed, the skill is available to your AI agent. Ask it to:
 
 ```yaml
 # skills.yaml
-superpowers: https://github.com/obra/superpowers@main
-my-skills: https://github.com/user/my-skills@develop
+superpowers:
+  repo: https://github.com/obra/superpowers@main
+  agents: [claude-code, cursor]
+
+my-skills:
+  repo: https://github.com/user/my-skills@develop
+  agents: [antigravity]
 ```
 
 ## License

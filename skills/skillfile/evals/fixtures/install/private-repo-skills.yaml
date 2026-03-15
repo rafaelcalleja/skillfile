@@ -1,2 +1,4 @@
 # Private repo — will fail without authentication
-private-repo: https://github.com/rafaelcalleja/private-nonexistent-repo@main
+private-repo:
+  repo: https://github.com/rafaelcalleja/private-nonexistent-repo@main
+  agents: [claude-code]

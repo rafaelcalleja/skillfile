@@ -1,3 +1,8 @@
-# Same repo, two different branches
-superpowers-main: https://github.com/obra/superpowers@main
-superpowers-dev: https://github.com/obra/superpowers@develop
+# Same repository, two branches
+superpowers-main:
+  repo: https://github.com/obra/superpowers@main
+  agents: [claude-code]
+
+superpowers-dev:
+  repo: https://github.com/obra/superpowers@develop
+  agents: [cursor]

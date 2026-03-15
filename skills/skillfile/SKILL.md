@@ -5,13 +5,15 @@ description: Use when managing agent skills installation, updates, or version pi
 
 # Skillfile
 
-Manages agent skills using `npx skills` with a declarative YAML config and a lockfile for reproducibility.
+Manages agent skills using `npx skills@1.4.5` with a declarative YAML config and a lockfile for reproducibility.
+
+> **npx version constraint**: All commands in this skill use `npx -y skills@1.4.5`. Do not use a different version — the skill's behavior depends on it.
 
 ## Quick Reference
 
 | Operation | What it does | Modifies lockfile? |
-|-----------|-------------|--------------------|
-| **Install** | Installs exactly what the lockfile says. If `skills.yaml` has new repos not in the lockfile, adds them | No (except adding new entries) |
+|-----------|-------------|-------------------|
+| **Install** | Installs what the lockfile says, filtered by agent. If `skills.yaml` has new repos not in the lockfile, adds them | No (except adding new entries) |
 | **Check** | Compares lockfile commits against remote HEAD | No |
 | **Update** | Installs latest from each branch, asks for confirmation | Yes |
 | **List** | Shows lockfile contents | No |
@@ -22,7 +24,7 @@ Manages agent skills using `npx skills` with a declarative YAML config and a loc
 
 | File | Purpose | Format | Schema | Edited by |
 |------|---------|--------|--------|-----------|
-| `skills.yaml` | Declares which repositories and branches you want | `name: https://url@branch` | `schemas/skills.schema.json` | User (manually) |
+| `skills.yaml` | Declares repositories, branches, and target agents | `name: {repo, agents}` | `schemas/skills.schema.json` | User (manually) |
 | `skills-lock.yaml` | Pins the exact commit hash installed | `name: {repo, branch, commit, installed, skills}` | `schemas/skills-lock.schema.json` | Skill only (never manually) |
 
 Both files live in the same directory as this skill and are validated before any operation by running `python3 scripts/validate_skills.py` from this skill's directory.
@@ -33,9 +35,11 @@ If `skills.yaml` does not exist in this skill's directory, create it with the fo
 
 ```yaml
 # Skills Configuration
-# Format: name: https://repository_url@branch
+# Format: name: {repo: https://repository_url@branch, agents: [agent1, agent2]}
 
-superpowers: https://github.com/obra/superpowers@main
+superpowers:
+  repo: https://github.com/obra/superpowers@main
+  agents: [claude-code, cursor]
 ```
 
 If the project does not have an `AGENTS.md` at its root, create one. If it already exists, append the following section. This lets other agents know that skill management is available:
@@ -54,9 +58,11 @@ Before any operation, validate the YAML files against their JSON schemas by runn
 
 ## Install
 
-Install skills from the lockfile. This is the default operation and never modifies the lockfile.
+Install skills from the lockfile, filtered by agent. This is the default operation and never modifies the lockfile.
 
-If `skills-lock.yaml` exists, read each entry and for each one: clone the repository, checkout the exact commit hash from the lockfile, then run `npx -y skills add <local-path> --all`. Clean up the temporary directory afterwards.
+Before installing, ask the user which agent to install for. If the user specifies an agent (e.g. "Install my skills for claude-code"), filter `skills.yaml` entries to only those whose `agents` list includes the specified agent. If the user says "all", install everything. Do not install without confirming the agent.
+
+If `skills-lock.yaml` exists, read each matching entry and for each one: clone the repository, checkout the exact commit hash from the lockfile, then run `npx -y skills@1.4.5 add <local-path> --agent <agent>`. Clean up the temporary directory afterwards.
 
 If the lockfile does not exist yet, treat this as a first-time install: read `skills.yaml`, install the latest from each branch, and generate the lockfile (see Update for how to generate it).
 
@@ -72,7 +78,7 @@ This operation never modifies the lockfile.
 
 This is the only operation that modifies the lockfile. Before proceeding, ask the user for confirmation.
 
-Read each entry from `skills.yaml`. For each one, clone the repository at the specified branch, then run `npx -y skills add <local-path> --all`. Clean up the temporary directory afterwards.
+Read each entry from `skills.yaml`. For each one, clone the repository at the specified branch, then run `npx -y skills@1.4.5 add <local-path> --agent <agents>` where `<agents>` comes from the entry's `agents` field. Clean up the temporary directory afterwards.
 
 After installing, regenerate `skills-lock.yaml` with: repo URL, branch, the new commit hash (obtained from the cloned repo), installation timestamp, and the list of skill names installed. Timestamps must be quoted strings (e.g. `"2026-03-14T07:18:30+01:00"`) to prevent YAML from auto-parsing them as datetime objects.
 
@@ -82,11 +88,11 @@ Read and display the contents of `skills-lock.yaml`. This shows all installed sk
 
 ## Remove a skill
 
-Run `npx -y skills remove <skill-name> --all` to remove a specific skill. Then remove its entry from `skills-lock.yaml`.
+Run `npx -y skills@1.4.5 remove <skill-name> --all` to remove a specific skill. Then remove its entry from `skills-lock.yaml`.
 
 ## Search for new skills
 
-Browse https://skills.sh or run `npx -y skills find <query>` to discover new skill packages.
+Browse https://skills.sh or run `npx -y skills@1.4.5 find <query>` to discover new skill packages.
 
 ## Standards Review
 

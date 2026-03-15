@@ -1,2 +1,6 @@
-# Valid skills.yaml fixture for testing
-superpowers: https://github.com/obra/superpowers@main
+# Skills Configuration
+# Format: name: {repo: https://repository_url@branch, agents: [agent1, agent2]}
+
+superpowers:
+  repo: https://github.com/obra/superpowers@main
+  agents: [claude-code, cursor]

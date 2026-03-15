@@ -1,4 +1,12 @@
-# 3 repos configured
-superpowers: https://github.com/obra/superpowers@main
-anthropic-skills: https://github.com/anthropics/skills@main
-skillfile: https://github.com/rafaelcalleja/skillfile@master
+# Multi-repo — 3 different repositories
+superpowers:
+  repo: https://github.com/obra/superpowers@main
+  agents: [claude-code, cursor]
+
+anthropic-skills:
+  repo: https://github.com/anthropics/skills@main
+  agents: [claude-code]
+
+skillfile:
+  repo: https://github.com/rafaelcalleja/skillfile@master
+  agents: [claude-code, cursor, antigravity]

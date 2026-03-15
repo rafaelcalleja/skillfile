@@ -1,3 +1,8 @@
-# 2 repos — one exists in lockfile, one is new
-superpowers: https://github.com/obra/superpowers@main
-anthropic-skills: https://github.com/anthropics/skills@main
+# Two repos
+superpowers:
+  repo: https://github.com/obra/superpowers@main
+  agents: [claude-code, cursor]
+
+anthropic-skills:
+  repo: https://github.com/anthropics/skills@main
+  agents: [claude-code]

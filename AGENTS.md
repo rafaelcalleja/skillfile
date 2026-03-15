@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-Skillfile manages agent skills using a declarative YAML config (`skills.yaml`) and a lockfile (`skills-lock.yaml`) for reproducibility. Skills are installed from git repositories.
+Skillfile manages agent skills using a declarative YAML config (`skills.yaml`) and a lockfile (`skills-lock.yaml`) for reproducibility. Skills are installed from git repositories, filtered by target agent (claude-code, cursor, etc.).
 
 ## Development Pipeline
 
@@ -16,6 +16,7 @@ Any modification to this skill MUST follow this order:
 4. **Verify** → every skill-creator step marked done, viewer shown to user
 5. **Commit** only after evals pass
 6. **Review standards** → see [STANDARDS.md](skills/skillfile/STANDARDS.md)
+7. **After npx version bump** → run agent sync: `npx -y skills@X.Y.Z --help` to verify flags, update SKILL.md if behavior changed
 
 ## References
 

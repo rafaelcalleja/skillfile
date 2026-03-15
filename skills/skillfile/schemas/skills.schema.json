@@ -1,13 +1,29 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Skills Configuration",
-  "description": "Defines skill repositories to install. Format: name: url@branch",
+  "description": "Defines skill repositories to install. Each entry is an object with repo URL and target agents.",
   "type": "object",
   "patternProperties": {
     "^[a-z][a-z0-9-]*$": {
-      "type": "string",
-      "pattern": "^https://.+@[a-zA-Z0-9._-]+$",
-      "description": "Repository URL with branch: https://github.com/user/repo@branch"
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string",
+          "pattern": "^https://.+@[a-zA-Z0-9._-]+$",
+          "description": "Repository URL with branch: https://github.com/user/repo@branch"
+        },
+        "agents": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "description": "Target agents to install the skill for (e.g. claude-code, cursor, antigravity)"
+        }
+      },
+      "required": ["repo", "agents"],
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,
