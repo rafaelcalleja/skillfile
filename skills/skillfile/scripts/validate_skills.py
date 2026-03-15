@@ -10,7 +10,7 @@ import yaml
 from jsonschema import validate, ValidationError
 
 WORKFLOWS_DIR = Path(__file__).resolve().parent.parent
-SCHEMAS_DIR = WORKFLOWS_DIR / "schemas"
+SCHEMAS_DIR = WORKFLOWS_DIR / "references"
 
 FILES_TO_VALIDATE = [
     ("skills.yaml", "skills.schema.json", True),       # required
