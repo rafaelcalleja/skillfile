@@ -249,6 +249,79 @@
         "Agent stops immediately — hard gate",
         "Agent does NOT attempt to remove anything"
       ]
+    },
+    {
+      "id": 22,
+      "prompt": "Update my skills",
+      "expected_output": "Agent asks for confirmation, updates to latest commit, regenerates lockfile",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent asks the user for confirmation before proceeding",
+        "Agent clones at the branch (not the lockfile commit)",
+        "Agent runs npx skills add with the cloned path",
+        "Agent regenerates skills-lock.yaml with new commit hash and timestamp"
+      ]
+    },
+    {
+      "id": 23,
+      "prompt": "Update my skills",
+      "expected_output": "Agent updates all 3 repos and regenerates lockfile with 3 entries",
+      "files": ["evals/fixtures/install/multi-repo-skills.yaml", "evals/fixtures/install/multi-repo-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent asks the user for confirmation before proceeding",
+        "Agent updates all 3 repositories",
+        "Agent regenerates skills-lock.yaml with 3 updated entries"
+      ]
+    },
+    {
+      "id": 24,
+      "prompt": "Update my skills",
+      "expected_output": "Agent asks for confirmation, user declines, nothing is modified",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent asks the user for confirmation",
+        "If user declines, agent stops without modifying anything",
+        "Lockfile is NOT modified"
+      ]
+    },
+    {
+      "id": 25,
+      "prompt": "Update my skills",
+      "expected_output": "Validation fails, agent stops before updating",
+      "files": ["evals/fixtures/invalid-skills-bad-url.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Validation fails with a schema error",
+        "Agent stops immediately — hard gate",
+        "Agent does NOT attempt to update anything"
+      ]
+    },
+    {
+      "id": 26,
+      "prompt": "Update my skills",
+      "expected_output": "Clone fails during update, agent reports error",
+      "files": ["evals/fixtures/install/nonexistent-repo-skills.yaml"],
+      "expectations": [
+        "Agent runs validation (passes)",
+        "Agent asks the user for confirmation",
+        "Agent attempts to clone the repository",
+        "Clone fails, agent reports the error to the user"
+      ]
+    },
+    {
+      "id": 27,
+      "prompt": "Update my skills",
+      "expected_output": "No lockfile exists, agent creates one from scratch (equivalent to first-time install)",
+      "files": ["evals/fixtures/valid-skills.yaml"],
+      "expectations": [
+        "Agent runs validation before operating",
+        "Agent asks the user for confirmation",
+        "Agent clones at the branch and installs",
+        "Agent generates skills-lock.yaml with commit hash and timestamp"
+      ]
     }
   ]
 }
