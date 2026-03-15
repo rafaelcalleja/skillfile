@@ -4,5 +4,5 @@ superpowers-main:
   agents: [claude-code]
 
 superpowers-dev:
-  repo: https://github.com/obra/superpowers@develop
+  repo: https://github.com/obra/superpowers@dev
   agents: [cursor]
