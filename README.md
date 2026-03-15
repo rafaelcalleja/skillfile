@@ -10,12 +10,6 @@ A skill for managing agent skills with version pinning and reproducibility.
 - **Validation** — JSON Schema + Python jsonschema for all YAML files
 - **Standards** — self-evolving patterns for workflow quality
 
-## Install
-
-```bash
-npx skills add rafaelcalleja/skillfile
-```
-
 ## Getting Started
 
 1. **Install** the skillfile skill into your project:
