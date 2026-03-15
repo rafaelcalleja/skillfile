@@ -8,8 +8,9 @@
       "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
       "expectations": [
         "Agent runs validation before install",
+        "Agent asks the user which agent to install for",
         "Agent clones the repo at the exact commit hash from the lockfile",
-        "Agent runs npx skills add with the cloned path",
+        "Agent runs npx skills@1.4.5 add with --agent flag",
         "Agent does NOT modify skills-lock.yaml",
         "Agent cleans up temporary clone directory"
       ]
@@ -21,6 +22,7 @@
       "files": ["evals/fixtures/install/multi-repo-skills.yaml", "evals/fixtures/install/multi-repo-lock.yaml"],
       "expectations": [
         "Agent runs validation before install",
+        "Agent asks the user which agent to install for",
         "Agent installs all 3 repositories",
         "Each repo is cloned at its exact commit hash from the lockfile",
         "Agent does NOT modify skills-lock.yaml"
@@ -33,6 +35,7 @@
       "files": ["evals/fixtures/valid-skills.yaml"],
       "expectations": [
         "Agent runs validation before install",
+        "Agent asks the user which agent to install for",
         "Agent detects that no lockfile exists",
         "Agent treats this as a first-time install",
         "Agent installs the latest version from the branch",
@@ -46,6 +49,7 @@
       "files": ["evals/fixtures/install/multi-repo-skills.yaml"],
       "expectations": [
         "Agent runs validation before install",
+        "Agent asks the user which agent to install for",
         "Agent detects no lockfile, treats as first-time install",
         "Agent installs all 3 repositories",
         "Agent generates skills-lock.yaml with 3 entries",
@@ -59,6 +63,7 @@
       "files": ["evals/fixtures/install/two-repo-skills.yaml", "evals/fixtures/install/one-repo-lock.yaml"],
       "expectations": [
         "Agent runs validation before install",
+        "Agent asks the user which agent to install for",
         "Agent installs superpowers at the exact commit from lockfile",
         "Agent detects anthropic-skills is new (not in lockfile)",
         "Agent installs anthropic-skills at latest from branch",
@@ -86,6 +91,7 @@
       "files": ["evals/fixtures/install/nonexistent-repo-skills.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent attempts to clone the repository",
         "Clone fails because the repo does not exist",
         "Agent reports the error to the user",
@@ -99,6 +105,7 @@
       "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/install/orphaned-commit-lock.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent clones the repository",
         "Agent attempts to checkout the commit hash from lockfile",
         "Checkout fails because commit does not exist",
@@ -112,8 +119,9 @@
       "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent clones and checks out successfully",
-        "If npx skills add fails, agent reports the error",
+        "If npx skills@1.4.5 add fails, agent reports the error",
         "Agent does NOT silently ignore the failure"
       ]
     },
@@ -124,6 +132,7 @@
       "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/install/extra-entry-lock.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent installs superpowers (present in both files)",
         "Agent handles the extra lockfile entry (removed-repo) — either ignores it, warns about it, or asks the user"
       ]
@@ -135,6 +144,7 @@
       "files": ["evals/fixtures/install/same-repo-two-branches-skills.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent treats each entry as independent",
         "Agent installs from both branches without conflict",
         "Each branch gets its own lockfile entry"
@@ -147,6 +157,7 @@
       "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent clones and installs at the lockfile commit",
         "Installation completes without error",
         "Lockfile is NOT modified",
@@ -160,6 +171,7 @@
       "files": ["evals/fixtures/install/partial-failure-skills.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent installs the first repo (superpowers) successfully",
         "Agent fails on the second repo (fake-repo)",
         "Agent reports the failure to the user",
@@ -173,6 +185,7 @@
       "files": ["evals/fixtures/install/private-repo-skills.yaml"],
       "expectations": [
         "Agent runs validation (passes)",
+        "Agent asks the user which agent to install for",
         "Agent attempts to clone the repository",
         "Clone fails due to access/authentication error",
         "Agent reports the error to the user"
@@ -197,7 +210,7 @@
       "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
       "expectations": [
         "Agent runs validation before operating",
-        "Agent runs npx skills remove superpowers --all",
+        "Agent runs npx skills@1.4.5 remove superpowers --all",
         "Agent removes the superpowers entry from skills-lock.yaml",
         "Agent confirms removal to the user"
       ]
@@ -209,7 +222,7 @@
       "files": ["evals/fixtures/install/multi-repo-skills.yaml", "evals/fixtures/install/multi-repo-lock.yaml"],
       "expectations": [
         "Agent runs validation before operating",
-        "Agent runs npx skills remove superpowers --all",
+        "Agent runs npx skills@1.4.5 remove superpowers --all",
         "Agent removes only the superpowers entry from skills-lock.yaml",
         "Other lockfile entries (anthropic-skills, skillfile) remain intact"
       ]
@@ -259,7 +272,7 @@
         "Agent runs validation before operating",
         "Agent asks the user for confirmation before proceeding",
         "Agent clones at the branch (not the lockfile commit)",
-        "Agent runs npx skills add with the cloned path",
+        "Agent runs npx skills@1.4.5 add with the cloned path and --agent flag",
         "Agent regenerates skills-lock.yaml with new commit hash and timestamp"
       ]
     },
@@ -321,6 +334,53 @@
         "Agent asks the user for confirmation",
         "Agent clones at the branch and installs",
         "Agent generates skills-lock.yaml with commit hash and timestamp"
+      ]
+    },
+    {
+      "id": 28,
+      "prompt": "Install my skills for claude-code",
+      "expected_output": "Agent filters skills.yaml to only entries with claude-code in their agents list, installs only those",
+      "files": ["evals/fixtures/install/multi-repo-skills.yaml", "evals/fixtures/install/multi-repo-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before install",
+        "Agent uses the specified agent (claude-code) without asking",
+        "Agent filters repos to only those with claude-code in agents list",
+        "Agent installs matching repos using --agent claude-code flag"
+      ]
+    },
+    {
+      "id": 29,
+      "prompt": "Install my skills for all agents",
+      "expected_output": "Agent installs everything without filtering",
+      "files": ["evals/fixtures/valid-skills.yaml", "evals/fixtures/valid-skills-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before install",
+        "Agent uses 'all' — installs without agent filtering",
+        "Agent installs all repos regardless of agents list"
+      ]
+    },
+    {
+      "id": 30,
+      "prompt": "Install my skills for antigravity",
+      "expected_output": "Only repos with antigravity in agents list are installed. Repos without antigravity are skipped.",
+      "files": ["evals/fixtures/install/multi-repo-skills.yaml", "evals/fixtures/install/multi-repo-lock.yaml"],
+      "expectations": [
+        "Agent runs validation before install",
+        "Agent filters repos to only those with antigravity in agents list",
+        "Only skillfile repo is installed (only one with antigravity)",
+        "superpowers and anthropic-skills are skipped"
+      ]
+    },
+    {
+      "id": 31,
+      "prompt": "Install my skills for nonexistent-agent",
+      "expected_output": "No repos match the specified agent, agent reports that nothing to install",
+      "files": ["evals/fixtures/install/multi-repo-skills.yaml"],
+      "expectations": [
+        "Agent runs validation before install",
+        "Agent filters repos to those with nonexistent-agent in agents list",
+        "No repos match",
+        "Agent reports that no skills are configured for this agent"
       ]
     }
   ]
