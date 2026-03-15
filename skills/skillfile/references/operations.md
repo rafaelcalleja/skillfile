@@ -11,7 +11,7 @@ Before installing, check if the user specified which agent to install for. If th
 **With lockfile:** Read each matching entry. For each one:
 1. Clone the repository
 2. Checkout the exact commit hash from the lockfile
-3. Run `npx -y skills@1.4.5 add <local-path> --agent <agent>`
+3. Run `npx -y skills@1.4.5 add <local-path> --agent <agent> --skill '*' -y`
 4. Clean up the temporary directory
 
 **Without lockfile (first-time):** Read `skills.yaml`, install the latest from each branch, and generate the lockfile (see Update for lockfile generation format).
@@ -30,7 +30,7 @@ This is the only operation that modifies the lockfile. Ask the user for confirma
 
 Read each entry from `skills.yaml`. For each one:
 1. Clone the repository at the specified branch
-2. Run `npx -y skills@1.4.5 add <local-path> --agent <agents>` where `<agents>` comes from the entry's `agents` field
+2. Run `npx -y skills@1.4.5 add <local-path> --agent <agents> --skill '*' -y` where `<agents>` comes from the entry's `agents` field
 3. Clean up the temporary directory
 
 After installing, regenerate `skills-lock.yaml` with:
