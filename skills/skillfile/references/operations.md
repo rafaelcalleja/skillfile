@@ -4,52 +4,59 @@ Detailed procedures for each skillfile operation. Read the relevant section when
 
 ## Install
 
-Install skills from the lockfile, filtered by agent.
+**Goal**: All skills from the lockfile are installed for the requested agent. New repos in `skills.yaml` not yet in the lockfile get installed at latest and added to the lockfile.
 
-Before installing, check if the user specified which agent to install for. If they said something like "Install my skills for claude-code", use that agent. If they just said "Install my skills" without specifying, ask them which agent — the `agents` field in `skills.yaml` shows what's available. If they say "all", install everything.
+Determine which agent to install for: check if the user specified one, if `config.json` has a `default_agent`, or ask the user. The `agents` field in `skills.yaml` shows what's available.
 
-**With lockfile:** Read each matching entry. For each one:
-1. Clone the repository
-2. Checkout the exact commit hash from the lockfile
-3. Run `npx -y skills@1.4.5 add <local-path> --agent <agent> --skill '*' -y`
-4. Clean up the temporary directory
+**With lockfile**: For each entry matching the requested agent, clone the repo, checkout the pinned commit, and run `npx -y skills@1.4.5 add <local-path> --agent <agent> --skill '*' -y`. Clean up each clone after installation.
 
-**Without lockfile (first-time):** Read `skills.yaml`, install the latest from each branch, and generate the lockfile (see Update for lockfile generation format).
+**Without lockfile (first-time)**: Install the latest from each branch and generate the lockfile (see Update for lockfile format).
 
-**New repos in skills.yaml:** If `skills.yaml` has repos not yet in the lockfile, install those at latest and add them to the lockfile. This is the only case where Install touches the lockfile — existing entries stay unchanged.
+**New repos in skills.yaml**: If `skills.yaml` has repos not in the lockfile, install those at latest and add them to the lockfile. Existing entries stay unchanged.
+
+If a clone fails, retry by converting the URL to the alternate protocol (`https://` ↔ `git@`).
+
+After installing, log each operation to `operations.log`.
 
 ## Check for Updates
 
-For each repository in the lockfile, run `git ls-remote <repo-url> refs/heads/<branch>` to get the latest commit hash. Compare against the `commit` field in the lockfile. Report which repositories have updates, showing current vs latest hashes.
+**Goal**: Report which repos have newer commits on their branch than what the lockfile pins.
+
+For each lockfile entry, run `git ls-remote <repo-url> refs/heads/<branch>` and compare against the `commit` field. Report differences with current vs latest hashes.
 
 This never modifies the lockfile.
 
 ## Update
 
-This is the only operation that modifies the lockfile. Ask the user for confirmation before proceeding — updating changes pinned versions, which affects reproducibility.
+**Goal**: All skills are installed at the latest commit from their branch, and the lockfile reflects the new state.
 
-Read each entry from `skills.yaml`. For each one:
-1. Clone the repository at the specified branch
-2. Run `npx -y skills@1.4.5 add <local-path> --agent <agents> --skill '*' -y` where `<agents>` comes from the entry's `agents` field
-3. Clean up the temporary directory
+> Ask the user for confirmation before proceeding — updating changes pinned versions, which affects reproducibility.
 
-After installing, regenerate `skills-lock.yaml` with:
+For each `skills.yaml` entry, clone at the branch head, install with `npx -y skills@1.4.5 add <local-path> --agent <agents> --skill '*' -y`, and clean up.
+
+After all installations, regenerate `skills-lock.yaml` with:
 - repo URL
 - branch
 - new commit hash (from the cloned repo)
-- installation timestamp
+- installation timestamp (must be a quoted string, e.g. `"2026-03-14T07:18:30+01:00"`)
 - list of skill names installed
 
-Timestamps must be quoted strings (e.g. `"2026-03-14T07:18:30+01:00"`) — YAML silently converts unquoted ISO dates into datetime objects, which breaks schema validation downstream.
+Log each operation to `operations.log`.
 
 ## List Installed Skills
 
-Read and display `skills-lock.yaml`. Shows all installed skills with source repository, branch, commit hash, and installation date.
+**Goal**: Display all installed skills with their source, branch, commit, and install date.
+
+Read `skills-lock.yaml` and present its contents.
 
 ## Remove a Skill
 
-Run `npx -y skills@1.4.5 remove <skill-name> --all` to remove a specific skill. Then remove its entry from `skills-lock.yaml`.
+**Goal**: The named skill is uninstalled and removed from the lockfile.
+
+Run `npx -y skills@1.4.5 remove <skill-name> --all`, then remove its entry from `skills-lock.yaml`. Log the operation to `operations.log`.
 
 ## Search for New Skills
 
-Browse https://skills.sh or run `npx -y skills@1.4.5 find <query>` to discover new skill packages.
+**Goal**: Help the user discover new skill packages.
+
+Browse https://skills.sh or run `npx -y skills@1.4.5 find <query>`.

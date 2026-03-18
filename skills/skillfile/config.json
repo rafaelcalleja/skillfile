@@ -1,0 +1,5 @@
+{
+  "_comment": "Skillfile preferences. Fill in to skip repeated questions.",
+  "default_agent": "",
+  "temp_dir": "/tmp"
+}
